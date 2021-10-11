@@ -6,6 +6,9 @@
 #include <iostream>
 
 #include "Shader.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "VertexArray.h"
 
 
 int main()
@@ -40,54 +43,71 @@ int main()
 		return -1;
 	}
 
+	glfwSwapInterval(1);
 
-
-
-	unsigned int vertexArrayID;
-	glGenVertexArrays(1, &vertexArrayID);
-	glBindVertexArray(vertexArrayID);
-
-	float vertexBuffer[] =
+	float vertexBufferData[] =
 	{
 		-0.5f, -0.5f, 0.0f,
 		 0.5f, -0.5f, 0.0f,
-		 0.0f,  1.0f, 0.0f
+		 0.5f,  0.5f, 0.0f,
+		-0.5f,  0.5f, 0.0f
 	};
 
-	unsigned int vertexBufferID;
-	glGenBuffers(1, &vertexBufferID);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
+	unsigned int indexBuffer[] =
+	{
+		0, 1, 2,
+		0, 2, 3
+	};
 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);
+	VertexArray va;
+	VertexBuffer vb(vertexBufferData, 4 * 3 * sizeof(unsigned int));
+	VertexBufferLayout layout;
+	IndexBuffer ib(indexBuffer, 6);
+	
+	layout.push<float>(3);
+	va.addBuffer(vb, layout);
 
-	Shader shader;
-	unsigned int programID = shader.loadShader("..\\OpenGL\\src\\shader\\vertexShader.glsl", "..\\OpenGL\\src\\shader\\fragmentShader.glsl");
+	Shader shader("..\\OpenGL\\src\\shader\\vertexShader.glsl", "..\\OpenGL\\src\\shader\\fragmentShader.glsl");
+	shader.bind();
+	shader.setUniform4f("u_Color", 0.8f, 0.3f, 0.2f, 1.0f);
+	
+	va.unbind();
+	vb.unbind();
+	ib.unbind();
+	shader.unbind();
+
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-
-
-
-
-
+	
+	float increment = 0.01f;
+	float r = 0.0f;
 
 	do {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT);
+		
+		va.bind();
+		ib.bind();
+		shader.bind();
+		shader.setUniform4f("u_Color", r, 0.3f, 0.2f, 1.0f);
 
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-		glUseProgram(programID);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		glDisableVertexAttribArray(0);
+		glDrawElements(GL_TRIANGLES, 6 , GL_UNSIGNED_INT, nullptr);
 		// Swap buffers
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 
+		r += increment;
+
+		if (r > 1.0f)
+			increment = -0.01f;
+		else if (r < 0.0f)
+			increment = 0.01f;
+
 	}
 	while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 		glfwWindowShouldClose(window) == 0);
-
+	
+	shader.unbind();
+	glfwTerminate();
 
 	std::cin.get();
 	return 0;
