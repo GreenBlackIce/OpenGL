@@ -12,6 +12,7 @@
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "VertexArray.h"
+#include "Mvp.h"
 
 
 int main()
@@ -124,28 +125,6 @@ int main()
 		21, 22, 23 //6
 	};
 
-	float squareVertexBufferData[] =
-	{
-		-0.5f, -0.5f,  0.5f,
-		 0.5f, -0.5f,  0.5f,
-		 0.5f,  0.5f,  0.5f,
-		-0.5f,  0.5f,  0.5f
-	};
-
-	unsigned int squareIndexBuffer[] =
-	{
-		0, 1, 2,
-		0, 2, 3
-	};
-
-	float squareColorBuffer[] =
-	{
-		0.583f,  0.771f,  0.014f,
-		0.609f,  0.115f,  0.436f,
-		0.327f,  0.483f,  0.844f,
-		0.822f,  0.569f,  0.201f
-	};
-
 //Define Date end
  //Qube start
 
@@ -169,54 +148,14 @@ int main()
 	ib.unbind();
 
 //Qube end
-//Square Start
-	
-	VertexArray squareVa;
-	VertexBuffer squareVb(squareVertexBufferData, 4 * 3 * sizeof(float));
-	VertexBuffer squareCb(squareColorBuffer, 4 * 3 * sizeof(float));
-	VertexBufferLayout squareLayout;
-	IndexBuffer squareIb(squareIndexBuffer, 6);
-
-	squareLayout.push<float>(3);
-	squareLayout.push<float>(3);
-
-	VertexBuffer* pSquareVb[] = { &squareVb, &squareCb };
-	squareVa.addBuffer(pSquareVb, squareLayout);
-	
-	squareVa.unbind();
-	squareVb.unbind();
-	squareIb.unbind();
-
-//Square end
 
 	Shader shader("..\\OpenGL\\src\\shader\\vertexShader.glsl", "..\\OpenGL\\src\\shader\\fragmentShader.glsl");
 
 //MVP Cube start
 
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 0.1f, 100.0f);
-
-	glm::mat4 view = glm::lookAt(
-		glm::vec3(4, 3, 3),
-		glm::vec3(0, 0, 0),
-		glm::vec3(0, 1, 0));
-
-	glm::mat4 model = glm::mat4(1.0f);
-
-	glm::mat4 mvp = projection * view * model;
+	glm::mat4 mvp = getMvp(45.0f, 1024.0f, 768.0f, 1.0f, glm::vec3(4, 3, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 
 //MVP Cube end
-//MVP Square start
-
-	glm::mat4 squarePview = glm::lookAt(
-		glm::vec3(2, 3, 3),
-		glm::vec3(1, 1, 0),
-		glm::vec3(0, 1, 0));
-
-	glm::mat4 squareModel = glm::mat4(1.0f);
-
-	glm::mat4 squareMvp = projection * squarePview * squareModel;
-
-//MVP Square end
 //Drawing Loop Start
 
 	glEnable(GL_DEPTH_TEST);
@@ -232,12 +171,6 @@ int main()
 		ib.bind();
 		shader.setUniformMatrix4fv("MVP", 1, false, mvp);
 		glDrawElements(GL_TRIANGLES, 36 , GL_UNSIGNED_INT, nullptr);
-		//Square Draw
-		
-		squareVa.bind();
-		squareIb.bind();
-		shader.setUniformMatrix4fv("MVP", 1, false, squareMvp);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 		
 		//Buffer swap
 		glfwSwapBuffers(window);
