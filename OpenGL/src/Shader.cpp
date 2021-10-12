@@ -31,14 +31,29 @@ void Shader::setUniform4f(const std::string& name, float v0, float v1, float v2,
 	GLCall(glUniform4f(getUniformLocation(name), v0, v1, v2, v3));
 }
 
-
-unsigned int Shader::getUniformLocation(const std::string & name)
+void Shader::setUniformMatrix4fv(const std::string& name, unsigned int count, bool transpose, glm::mat4& data)
 {
-	GLCall(int location = glGetUniformLocation(m_RendererID, name.c_str()));
+	if (transpose)
+	{
+		GLCall(glUniformMatrix4fv(getUniformLocation(name), count, GL_TRUE, &data[0][0]));
+	}
+	else
+	{
+		GLCall(glUniformMatrix4fv(getUniformLocation(name), count, GL_FALSE, &data[0][0]));
+	}
+}
+
+GLuint Shader::getUniformLocation(const std::string& name) const
+{
+	if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
+		return m_UniformLocationCache[name];
+
+	int location = glGetUniformLocation(m_RendererID, name.c_str());
 	if (location == -1)
 	{
 		std::cout << "Warning Uniform " << name << " does not exist!" << std::endl;
 	}
+	m_UniformLocationCache[name] = location;
 	return location;
 }
 

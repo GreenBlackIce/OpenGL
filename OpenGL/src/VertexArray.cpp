@@ -1,5 +1,6 @@
 #include "VertexArray.h"
 #include "Renderer.h"
+#include <iostream>
 
 VertexArray::VertexArray()
 {
@@ -11,7 +12,7 @@ VertexArray::~VertexArray()
 	GLCall(glDeleteVertexArrays(1, &m_RendererID));
 }
 
-void VertexArray::addBuffer(const VertexBuffer & vb, const VertexBufferLayout & layout)
+void VertexArray::addBuffer(const VertexBuffer& vb, const VertexBufferLayout & layout)
 {
 	bind();
 	vb.bind();
@@ -22,6 +23,21 @@ void VertexArray::addBuffer(const VertexBuffer & vb, const VertexBufferLayout & 
 		const auto& element = elements[i];
 		GLCall(glEnableVertexAttribArray(i));
 		GLCall(glVertexAttribPointer(i, element.count, element.type, element.normalized, layout.getStride() , (const void*)offset));
+		offset += element.count * VertexBufferElement::getSizeOfType(element.type);
+	}
+}
+void VertexArray::addBuffer(VertexBuffer * vb[], const VertexBufferLayout & layout)
+{
+	bind();
+	const auto& elements = layout.getElements();
+	unsigned int offset = 0;
+	for (unsigned int i = 0; i < elements.size(); i++)
+	{
+		vb[i]->bind();
+		const auto& element = elements[i];
+		const int stride = element.count * element.getSizeOfType(element.type);
+		GLCall(glEnableVertexAttribArray(i));
+		GLCall(glVertexAttribPointer(i, element.count, element.type, element.normalized, stride, (const void*)offset));
 		offset += element.count * VertexBufferElement::getSizeOfType(element.type);
 	}
 }
