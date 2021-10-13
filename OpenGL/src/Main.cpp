@@ -12,7 +12,7 @@
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "VertexArray.h"
-#include "Mvp.h"
+#include "Movement.h"
 
 
 int main()
@@ -153,19 +153,20 @@ int main()
 
 //MVP Cube start
 
-	glm::mat4 mvp = getMvp(45.0f, 1024.0f, 768.0f, 1.0f, glm::vec3(4, 3, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	Movement movement(window);
 
 //MVP Cube end
 //Drawing Loop Start
 
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
 	glDepthFunc(GL_LESS);
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 	do {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		shader.bind();
-
+		glm::mat4 mvp = movement.getMvp();
 		//Qube Draw
 		va.bind();
 		ib.bind();

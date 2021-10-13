@@ -16,10 +16,8 @@ private:
 	float speed = 3.0f;
 	float mouseSpeed = 0.005f;
 	int windowWidth, windowHeight;
+	double lastTime;
 
-	glm::vec3 getDirection();
-	glm::vec3 getPosition();
-	float getTime();
 public:
 	Movement(GLFWwindow* window);
 	glm::mat4 getMvp();
