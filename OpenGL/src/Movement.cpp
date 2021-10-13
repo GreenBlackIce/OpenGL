@@ -14,7 +14,7 @@ glm::mat4 Movement::moveAloneParty()
 {
 	m_Position = glm::vec3(0, 1, 3) + glm::vec3(4 * cos(m_LastTime) * 2, 1, 4 * sin(m_LastTime) * 2);
 
-	glm::mat4 mvp = mvp::getMvp(m_InitialFoV, 4, 3, 1.0f, m_Position, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	glm::mat4 mvp = mvp::getMvp(m_InitialFoV, m_WindowWidth, m_WindowHeight, 1.0f, m_Position, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 
 	return mvp;
 }
@@ -108,4 +108,24 @@ glm::mat4 Movement::getMvp()
 
 	m_LastTime = glfwGetTime();
 	return mvp;
+}
+
+glm::mat4 Movement::getV()
+{
+	/*
+	glm::vec3 right(
+		sin(m_HorizontalAngle - 3.14f / 2.0f),
+		0,
+		cos(m_HorizontalAngle - 3.14f / 2.0f));
+
+	glm::vec3 up = glm::cross(right, m_Direction);
+	*/
+	glm::mat4 V = glm::lookAt(m_Position, m_Position + m_Direction, glm::vec3(0,1,0));
+
+	return V;
+}
+
+glm::mat4 Movement::getM()
+{
+	return glm::perspective(glm::radians(m_InitialFoV), float(m_WindowWidth) / float(m_WindowHeight), 0.1f, 100.0f);
 }

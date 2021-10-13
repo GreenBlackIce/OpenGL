@@ -19,6 +19,7 @@ public:
 	void bind() const;
 	void unbind() const;
 
+	void setUniform1f(const std::string& name, float v0);
 	void setUniform4f(const std::string& name, float v0, float v1, float v2, float v3);
 	void setUniformMatrix4fv(const std::string& name, unsigned int count, bool transpose, glm::mat4& data);
 

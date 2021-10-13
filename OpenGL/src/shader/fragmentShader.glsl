@@ -1,12 +1,19 @@
 #version 330 core
 
 in vec3 fragmentColor;
-out vec3 color;
+in vec3 normal_cameraspace;
+in vec3 lightDirection_cameraspace;
+in float fragmentLightColor;
+in float fragemntLightPower;
 
-//uniform vec4 u_Color;
+out vec3 color;
 
 void main()
 {
-	color = fragmentColor;
-	//color = u_Color;
+	vec3 n = normalize( normal_cameraspace );
+	vec3 l = normalize( lightDirection_cameraspace );
+
+	float cosTheta = clamp(dot(n , l), 0, 1);
+
+	color = fragmentColor * fragmentLightColor * fragemntLightPower; //* cosTheta; // / (distance * distance );
 }

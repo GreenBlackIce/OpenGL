@@ -28,4 +28,6 @@ private:
 public:
 	Movement(GLFWwindow* window);
 	glm::mat4 getMvp();
+	glm::mat4 getV();
+	glm::mat4 getM();
 };

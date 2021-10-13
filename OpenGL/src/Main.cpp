@@ -83,30 +83,60 @@ int main()
 
 	float vertexBufferData[] =
 	{
-		-0.5f, -0.5f,  0.5f,
-		 0.5f, -0.5f,  0.5f,
-		 0.5f,  0.5f,  0.5f,
-		-0.5f,  0.5f,  0.5f, //front end
-		-0.5f, -0.5f, -0.5f,
-		 0.5f, -0.5f, -0.5f,
-		 0.5f,  0.5f, -0.5f,
-		-0.5f,  0.5f, -0.5f, //back end
-		-0.5f, -0.5f,  0.5f,
-		-0.5f,  0.5f,  0.5f,
-		-0.5f, -0.5f, -0.5f,
-		-0.5f,  0.5f, -0.5f,// left end
-		 0.5f, -0.5f,  0.5f,
-		 0.5f,  0.5f,  0.5f,
-		 0.5f, -0.5f, -0.5f,
-		 0.5f,  0.5f, -0.5f,// right end
-		 0.5f, -0.5f,  0.5f,
-		-0.5f, -0.5f,  0.5f,
-		 0.5f, -0.5f, -0.5f,
-		-0.5f, -0.5f, -0.5f,// bottom end
-		 0.5f,  0.5f,  0.5f,
-		-0.5f,  0.5f,  0.5f,
-		 0.5f,  0.5f, -0.5f,
-		-0.5f,  0.5f, -0.5f,// top end
+		-0.5f, -0.5f,  0.5f, //0
+		 0.5f, -0.5f,  0.5f, //1
+		 0.5f,  0.5f,  0.5f, //2
+		-0.5f,  0.5f,  0.5f, //3   front end
+		-0.5f, -0.5f, -0.5f, //4
+		 0.5f, -0.5f, -0.5f, //5
+		 0.5f,  0.5f, -0.5f, //6
+		-0.5f,  0.5f, -0.5f, //7   back end
+
+		-0.5f, -0.5f,  0.5f,//0 8
+		-0.5f,  0.5f,  0.5f,//3 9
+		-0.5f, -0.5f, -0.5f,//4 10
+		-0.5f,  0.5f, -0.5f,//7 11   left end
+		 0.5f, -0.5f,  0.5f,//1 12
+		 0.5f,  0.5f,  0.5f,//2 13
+		 0.5f, -0.5f, -0.5f,//5 14
+		 0.5f,  0.5f, -0.5f,//6 15  right end
+		 0.5f, -0.5f,  0.5f,//1 16
+		-0.5f, -0.5f,  0.5f,//0 17
+		 0.5f, -0.5f, -0.5f,//5 18
+		-0.5f, -0.5f, -0.5f,//4 19 bottom end
+		 0.5f,  0.5f,  0.5f,//2 20
+		-0.5f,  0.5f,  0.5f,//3 21
+		 0.5f,  0.5f, -0.5f,//6 22
+		-0.5f,  0.5f, -0.5f,//7 23 top end
+		
+	};
+
+	float normalsBufferData[] =
+	{
+		 0.0f,  0.0f,  1.0f,
+		 0.0f,  0.0f,  1.0f,
+		 0.0f,  0.0f,  1.0f,
+		 0.0f,  0.0f,  1.0f,
+		 0.0f,  0.0f, -1.0f,
+		 0.0f,  0.0f, -1.0f,
+		 0.0f,  0.0f, -1.0f,
+		 0.0f,  0.0f, -1.0f,
+		-1.0f,  0.0f,  0.0f,
+		-1.0f,  0.0f,  0.0f,
+		-1.0f,  0.0f,  0.0f,
+		-1.0f,  0.0f,  0.0f,
+		 1.0f,  0.0f,  0.0f,
+		 1.0f,  0.0f,  0.0f,
+		 1.0f,  0.0f,  0.0f,
+		 1.0f,  0.0f,  0.0f,
+		 0.0f, -1.0f,  0.0f,
+		 0.0f, -1.0f,  0.0f,
+		 0.0f, -1.0f,  0.0f,
+		 0.0f, -1.0f,  0.0f,
+		 0.0f,  1.0f,  0.0f,
+		 0.0f,  1.0f,  0.0f,
+		 0.0f,  1.0f,  0.0f,
+		 0.0f,  1.0f,  0.0f
 	};
 
 	unsigned int indexBuffer[] =
@@ -116,13 +146,23 @@ int main()
 		4, 5, 6,
 		4, 6, 7, //2
 		8, 9, 10,
-		9, 10, 11, //3
+		9, 10, 11,
 		12, 13, 14,
-		13, 14, 15, //4
+		13, 14, 15,
 		16, 17, 18,
-		17, 18, 19, //5
+		17, 18, 19,
 		20, 21, 22,
-		21, 22, 23 //6
+		21, 22, 23
+		/*
+		0, 3, 4,
+		3, 4, 7, //3
+		1, 2, 5,
+		2, 5, 6, //4
+		1, 0, 5,
+		0, 5, 4, //5
+		2, 3, 6,
+		3, 6, 7 //6
+		*/
 	};
 
 //Define Date end
@@ -132,13 +172,15 @@ int main()
 
 	VertexBuffer vb(vertexBufferData, 24 * 3 * sizeof(float));
 	VertexBuffer cb(colorBufferData, 24 * 3 * sizeof(float));
+	VertexBuffer nb(normalsBufferData, 24 * 3 * sizeof(float));
 	
 	VertexBufferLayout layout;
 	
 	IndexBuffer ib(indexBuffer, 36);
 
-	VertexBuffer* pVb[] = { &vb, &cb };
+	VertexBuffer* pVb[] = { &vb, &cb, &nb };
 	
+	layout.push<float>(3);
 	layout.push<float>(3);
 	layout.push<float>(3);
 	va.addBuffer(pVb, layout);
@@ -167,10 +209,20 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		shader.bind();
 		glm::mat4 mvp = movement.getMvp();
+		glm::mat4 v = movement.getV();
+		glm::mat4 m = movement.getM();
 		//Qube Draw
 		va.bind();
 		ib.bind();
+
+		glm::mat4 test = glm::lookAt(glm::vec3(1,1,1), glm::vec3(0,0,0), glm::vec3(0,0,0));
+
+		shader.setUniform1f("lightColor", 1.0f);
+		shader.setUniform1f("lightPower", 1.0f);
+		shader.setUniformMatrix4fv("V", 1, false, v);
+		shader.setUniformMatrix4fv("M", 1, false, m);
 		shader.setUniformMatrix4fv("MVP", 1, false, mvp);
+
 		glDrawElements(GL_TRIANGLES, 36 , GL_UNSIGNED_INT, nullptr);
 		
 		//Buffer swap
