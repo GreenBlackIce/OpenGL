@@ -8,13 +8,13 @@ class Movement
 {
 private:
 	GLFWwindow* window;
-	glm::vec3 position = glm::vec3(0, 0, 3);
+	glm::vec3 position;
 
 	float horizontalAngle = 3.14f;
 	float verticalAngle = 0.0f;
 	float initialFoV = 45.0f;
-	float speed = 3.0f;
-	float mouseSpeed = 0.005f;
+	float speed = 2.0f;
+	float mouseSpeed = 0.05f;
 	int windowWidth, windowHeight;
 	double lastTime;
 

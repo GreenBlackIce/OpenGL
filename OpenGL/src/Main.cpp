@@ -159,7 +159,7 @@ int main()
 //Drawing Loop Start
 
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE); //Makes holes (doesnt render all triangles)
 	glDepthFunc(GL_LESS);
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
