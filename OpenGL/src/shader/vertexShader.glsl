@@ -9,6 +9,7 @@ uniform mat4 M;
 uniform float lightStrength;
 uniform vec3 lightPosition;
 uniform vec3 lightColor;
+uniform vec3 viewerPosition;
 
 out vec3 fragmentNormals;
 out vec3 fragmentColor;
@@ -16,6 +17,7 @@ out vec3 fragmentLightColor;
 out vec3 fragmentLightPosition;
 out vec3 fragmentPosition;
 out float fragmentLightStrength;
+out vec3 fragmentViewerPosition;
 
 void main()
 {
@@ -23,8 +25,10 @@ void main()
 
 	fragmentPosition = vec3(M * vec4(vertexPosition, 1.0));
 
+
+	fragmentViewerPosition = viewerPosition;
 	fragmentLightPosition = lightPosition;
-	fragmentNormals = vertexNormals;
+	fragmentNormals = mat3(transpose(inverse(M))) * vertexNormals;
 	fragmentLightColor = lightColor;
 	fragmentLightStrength = lightStrength;
 	fragmentColor = vertexColor;

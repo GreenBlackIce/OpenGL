@@ -1,25 +1,25 @@
 #include "Movement.h"
 #include "Mvp.h"
 
-glm::mat4 Movement::moveAlone()
+void Movement::moveAlone()
 {
 	m_Position = glm::vec3(0, 1, 0) + glm::vec3(4 * cos(m_LastTime), 0, 4 * sin(m_LastTime));
 
-	glm::mat4 mvp = mvp::getMvp(m_InitialFoV, 4, 3, 1.0f, m_Position, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-
-	return mvp;
+	m_MovementData.model = mvp::getModel(1.0f);
+	m_MovementData.view = mvp::getView(m_Position, glm::vec3(0,0,0), glm::vec3(0,1,0));
+	m_MovementData.projection = mvp::getPojection(m_InitialFoV, m_WindowWidth, m_WindowHeight);
 }
 
-glm::mat4 Movement::moveAloneParty()
+void Movement::moveAloneParty()
 {
 	m_Position = glm::vec3(0, 1, 3) + glm::vec3(4 * cos(m_LastTime) * 2, 1, 4 * sin(m_LastTime) * 2);
 
-	glm::mat4 mvp = mvp::getMvp(m_InitialFoV, m_WindowWidth, m_WindowHeight, 1.0f, m_Position, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-
-	return mvp;
+	m_MovementData.model = mvp::getModel(1.0f);
+	m_MovementData.view = mvp::getView(m_Position, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	m_MovementData.projection = mvp::getPojection(m_InitialFoV, m_WindowWidth, m_WindowHeight);
 }
 
-glm::mat4 Movement::moveMouseAndKey()
+void Movement::moveMouseAndKey()
 {
 	float deltaTime = float(glfwGetTime() - m_LastTime);
 	double xpos, ypos;
@@ -40,7 +40,7 @@ glm::mat4 Movement::moveMouseAndKey()
 		0,
 		cos(m_HorizontalAngle - 3.14f / 2.0f));
 
-	glm::vec3 up = glm::cross(right, m_Direction);
+	glm::vec3 m_Up = glm::cross(right, m_Direction);
 
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
 		m_Position += m_Direction * deltaTime * m_Speed;
@@ -58,9 +58,10 @@ glm::mat4 Movement::moveMouseAndKey()
 		m_Position -= right * deltaTime * m_Speed;
 	}
 
-	glm::mat4 mvp = mvp::getMvp(m_InitialFoV, 4, 3, 1.0f, m_Position, m_Position + m_Direction, up);
-
-	return mvp;
+	//glm::mat4 mvp = mvp::getMvp(m_InitialFoV, 4, 3, 1.0f, m_Position, m_Position + m_Direction, m_Up);
+	m_MovementData.model = mvp::getModel(1.0f);
+	m_MovementData.view = mvp::getView(m_Position, m_Position + m_Direction, m_Up);
+	m_MovementData.projection = mvp::getPojection(m_InitialFoV, m_WindowWidth, m_WindowHeight);
 }
 
 Movement::Movement(GLFWwindow* window)
@@ -70,11 +71,8 @@ Movement::Movement(GLFWwindow* window)
 	m_LastTime = glfwGetTime();
 }
 
-glm::mat4 Movement::getMvp()
+void Movement::movementStart()
 {
-	glm::mat4 mvp;
-	
-
 	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
 	{
 		m_Mode = m_ModeMenu[0];
@@ -93,39 +91,18 @@ glm::mat4 Movement::getMvp()
 	switch (m_Mode)
 	{
 	case 'A':
-		mvp = moveAlone();
+		moveAlone();
 		break;
 	case 'B':
-		mvp = moveAloneParty();
+		moveAloneParty();
 		break;
 	case 'C':
-		mvp = moveMouseAndKey();
+		moveMouseAndKey();
 		break;
 	default:
-		mvp = moveAlone();
+		moveAlone();
 		break;
 	}
 
 	m_LastTime = glfwGetTime();
-	return mvp;
-}
-
-glm::mat4 Movement::getV()
-{
-	/*
-	glm::vec3 right(
-		sin(m_HorizontalAngle - 3.14f / 2.0f),
-		0,
-		cos(m_HorizontalAngle - 3.14f / 2.0f));
-
-	glm::vec3 up = glm::cross(right, m_Direction);
-	*/
-	glm::mat4 V = glm::lookAt(glm::vec3(1, 1, 1), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-
-	return V;
-}
-
-glm::mat4 Movement::getM()
-{
-	return glm::perspective(glm::radians(m_InitialFoV), float(m_WindowWidth) / float(m_WindowHeight), 0.1f, 100.0f);
 }

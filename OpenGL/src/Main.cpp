@@ -13,6 +13,7 @@
 #include "IndexBuffer.h"
 #include "VertexArray.h"
 #include "Movement.h"
+#include "Mvp.h"
 
 
 int main()
@@ -205,23 +206,25 @@ int main()
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 	do {
+		movement.movementStart();
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		shader.bind();
-		glm::mat4 mvp = movement.getMvp();
-		glm::mat4 m = movement.getM();
+		glm::mat4 mvp = movement.m_MovementData.getMvp();
+		glm::mat4 m = movement.m_MovementData.model;
 		//Qube Draw
 		va.bind();
 		ib.bind();
 
 		shader.setUniform1f("lightStrength", 1.0f);
-		shader.setUniform3f("lightColor", 1.0f, 1.0f, 1.0f);
-		shader.setUniform3f("lightPosition", 1.2f, 1.0f, 2.0f);
+		shader.setUniform3f("lightColor", 1.0f, 1.0f, 0.5f);
+		shader.setUniform3f("lightPosition", 1.0f, 1.0f, 1.0f);
+		shader.setUniform3f("viewerPosition", movement.m_Position.x, movement.m_Position.y, movement.m_Position.z);
 		shader.setUniformMatrix4fv("M", 1, false, m);
 		shader.setUniformMatrix4fv("MVP", 1, false, mvp);
-
 		glDrawElements(GL_TRIANGLES, 36 , GL_UNSIGNED_INT, nullptr);
-		
+
+
 		//Buffer swap
 		glfwSwapBuffers(window);
 		glfwPollEvents();
