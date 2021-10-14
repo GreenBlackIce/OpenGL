@@ -45,30 +45,31 @@ GLFWwindow * startWindow()
 void startRender(GLFWwindow* window)
 {
 	static const float colorBufferData[] = {
-	0.583f,  0.771f,  0.014f,
-	0.609f,  0.115f,  0.436f,
-	0.327f,  0.483f,  0.844f,
-	0.822f,  0.569f,  0.201f,
-	0.435f,  0.602f,  0.223f,
-	0.310f,  0.747f,  0.185f,
-	0.597f,  0.770f,  0.761f,
-	0.559f,  0.436f,  0.730f,
-	0.359f,  0.583f,  0.152f,
-	0.483f,  0.596f,  0.789f,
-	0.559f,  0.861f,  0.639f,
-	0.195f,  0.548f,  0.859f,
-	0.014f,  0.184f,  0.576f,
-	0.771f,  0.328f,  0.970f,
-	0.406f,  0.615f,  0.116f,
-	0.676f,  0.977f,  0.133f,
-	0.971f,  0.572f,  0.833f,
-	0.140f,  0.616f,  0.489f,
-	0.997f,  0.513f,  0.064f,
-	0.945f,  0.719f,  0.592f,
-	0.543f,  0.021f,  0.978f,
-	0.279f,  0.317f,  0.505f,
-	0.167f,  0.620f,  0.077f,
-	0.347f,  0.857f,  0.137f
+		
+		0.5f,  0.7f,  0.0f,
+		0.6f,  0.1f,  0.4f,
+		0.3f,  0.4f,  0.8f,
+		0.8f,  0.5f,  0.2f,
+		0.4f,  0.6f,  0.2f,
+		0.3f,  0.7f,  0.1f,
+		0.5f,  0.7f,  0.7f,
+		0.5f,  0.4f,  0.7f,
+		0.3f,  0.5f,  0.1f,
+		0.4f,  0.5f,  0.7f,
+		0.5f,  0.8f,  0.6f,
+		0.1f,  0.5f,  0.8f,
+		0.0f,  0.1f,  0.5f,
+		0.7f,  0.3f,  0.9f,
+		0.4f,  0.6f,  0.1f,
+		0.6f,  0.9f,  0.1f,
+		0.9f,  0.5f,  0.8f,
+		0.1f,  0.6f,  0.4f,
+		0.9f,  0.5f,  0.0f,
+		0.9f,  0.7f,  0.5f,
+		0.5f,  0.0f,  0.9f,
+		0.2f,  0.3f,  0.5f,
+		0.1f,  0.6f,  0.0f,
+		0.3f,  0.8f,  0.1f
 	};
 
 	float vertexBufferData[] =
@@ -81,22 +82,22 @@ void startRender(GLFWwindow* window)
 		 0.5f, -0.5f, -0.5f, //5
 		 0.5f,  0.5f, -0.5f, //6
 		-0.5f,  0.5f, -0.5f, //7   back end
-		-0.5f, -0.5f,  0.5f,//0 8
-		-0.5f,  0.5f,  0.5f,//3 9
-		-0.5f, -0.5f, -0.5f,//4 10
-		-0.5f,  0.5f, -0.5f,//7 11   left end
-		 0.5f, -0.5f,  0.5f,//1 12
-		 0.5f,  0.5f,  0.5f,//2 13
-		 0.5f, -0.5f, -0.5f,//5 14
-		 0.5f,  0.5f, -0.5f,//6 15  right end
-		 0.5f, -0.5f,  0.5f,//1 16
-		-0.5f, -0.5f,  0.5f,//0 17
-		 0.5f, -0.5f, -0.5f,//5 18
-		-0.5f, -0.5f, -0.5f,//4 19 bottom end
-		 0.5f,  0.5f,  0.5f,//2 20
-		-0.5f,  0.5f,  0.5f,//3 21
-		 0.5f,  0.5f, -0.5f,//6 22
-		-0.5f,  0.5f, -0.5f,//7 23 top end
+		-0.5f, -0.5f,  0.5f, //0 8
+		-0.5f,  0.5f,  0.5f, //3 9
+		-0.5f, -0.5f, -0.5f, //4 10
+		-0.5f,  0.5f, -0.5f, //7 11   left end
+		 0.5f, -0.5f,  0.5f, //1 12
+		 0.5f,  0.5f,  0.5f, //2 13
+		 0.5f, -0.5f, -0.5f, //5 14
+		 0.5f,  0.5f, -0.5f, //6 15  right end
+		 0.5f, -0.5f,  0.5f, //1 16
+		-0.5f, -0.5f,  0.5f, //0 17
+		 0.5f, -0.5f, -0.5f, //5 18
+		-0.5f, -0.5f, -0.5f, //4 19 bottom end
+		 0.5f,  0.5f,  0.5f, //2 20
+		-0.5f,  0.5f,  0.5f, //3 21
+		 0.5f,  0.5f, -0.5f, //6 22
+		-0.5f,  0.5f, -0.5f, //7 23 top end
 
 	};
 
@@ -105,27 +106,27 @@ void startRender(GLFWwindow* window)
 		 0.0f,  0.0f, -1.0f,
 		 0.0f,  0.0f, -1.0f,
 		 0.0f,  0.0f, -1.0f,
-		 0.0f,  0.0f, -1.0f,
+		 0.0f,  0.0f, -1.0f, //front
 		 0.0f,  0.0f,  1.0f,
 		 0.0f,  0.0f,  1.0f,
 		 0.0f,  0.0f,  1.0f,
-		 0.0f,  0.0f,  1.0f,
+		 0.0f,  0.0f,  1.0f, //back
 		-1.0f,  0.0f,  0.0f,
 		-1.0f,  0.0f,  0.0f,
 		-1.0f,  0.0f,  0.0f,
-		-1.0f,  0.0f,  0.0f,
+		-1.0f,  0.0f,  0.0f, //left
 		 1.0f,  0.0f,  0.0f,
 		 1.0f,  0.0f,  0.0f,
 		 1.0f,  0.0f,  0.0f,
-		 1.0f,  0.0f,  0.0f,
+		 1.0f,  0.0f,  0.0f, //right
 		 0.0f, -1.0f,  0.0f,
 		 0.0f, -1.0f,  0.0f,
 		 0.0f, -1.0f,  0.0f,
-		 0.0f, -1.0f,  0.0f,
+		 0.0f, -1.0f,  0.0f, //bottom
 		 0.0f,  1.0f,  0.0f,
 		 0.0f,  1.0f,  0.0f,
 		 0.0f,  1.0f,  0.0f,
-		 0.0f,  1.0f,  0.0f
+		 0.0f,  1.0f,  0.0f  //top
 	};
 
 	unsigned int indexBuffer[] =
@@ -189,7 +190,12 @@ void startRender(GLFWwindow* window)
 	vb2.unbind();
 	ib2.unbind();
 
-	
+	for (auto i = 0; i < 72; i += 3)
+	{
+		glm::vec3 test = glm::normalize(glm::vec3(normalsBufferData[i], normalsBufferData[i + 1], normalsBufferData[i + 2]));
+		std::cout << normalsBufferData[i] << " " << normalsBufferData[i + 1] << " " << normalsBufferData[i + 2] << std::endl;
+		std::cout << test.x << " " << test.y << " " << test.z << std::endl;
+	}
 
 	Shader shader("..\\OpenGL\\src\\shader\\vertexShader.glsl", "..\\OpenGL\\src\\shader\\fragmentShader.glsl");
 
@@ -206,7 +212,6 @@ void startRender(GLFWwindow* window)
 		shader.bind();
 		glm::mat4 mvp = movement.m_MovementData.getMvp();
 		glm::mat4 m = movement.m_MovementData.model;
-		//Qube Draw
 		va.bind();
 		ib.bind();
 
@@ -229,9 +234,6 @@ void startRender(GLFWwindow* window)
 		glfwPollEvents();
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 		glfwWindowShouldClose(window) == 0);
-
-	//Drawing Loop end
-	//Collection GB
 
 	shader.unbind();
 }

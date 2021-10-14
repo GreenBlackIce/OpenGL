@@ -15,7 +15,9 @@ void main()
 	float specularSTR = 1.0f;
 	vec3 ambient = fragmentLightColor * fragmentLightStrength;
 
-	vec3 norm = normalize(fragmentNormals);
+	//Keine ahnung was der unterschied ist
+	vec3 norm = fragmentNormals;
+	//vec3 norm = normalize(fragmentNormals);
 	vec3 lightDir = normalize(fragmentLightPosition - fragmentPosition);
 	
 	vec3 viewDir = normalize(fragmentViewerPosition - fragmentPosition);
