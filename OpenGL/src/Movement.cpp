@@ -120,7 +120,7 @@ glm::mat4 Movement::getV()
 
 	glm::vec3 up = glm::cross(right, m_Direction);
 	*/
-	glm::mat4 V = glm::lookAt(m_Position, m_Position + m_Direction, glm::vec3(0,1,0));
+	glm::mat4 V = glm::lookAt(glm::vec3(1, 1, 1), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 
 	return V;
 }

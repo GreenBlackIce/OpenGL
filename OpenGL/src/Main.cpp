@@ -91,7 +91,6 @@ int main()
 		 0.5f, -0.5f, -0.5f, //5
 		 0.5f,  0.5f, -0.5f, //6
 		-0.5f,  0.5f, -0.5f, //7   back end
-
 		-0.5f, -0.5f,  0.5f,//0 8
 		-0.5f,  0.5f,  0.5f,//3 9
 		-0.5f, -0.5f, -0.5f,//4 10
@@ -113,14 +112,14 @@ int main()
 
 	float normalsBufferData[] =
 	{
-		 0.0f,  0.0f,  1.0f,
-		 0.0f,  0.0f,  1.0f,
-		 0.0f,  0.0f,  1.0f,
-		 0.0f,  0.0f,  1.0f,
 		 0.0f,  0.0f, -1.0f,
 		 0.0f,  0.0f, -1.0f,
 		 0.0f,  0.0f, -1.0f,
 		 0.0f,  0.0f, -1.0f,
+		 0.0f,  0.0f,  1.0f,
+		 0.0f,  0.0f,  1.0f,
+		 0.0f,  0.0f,  1.0f,
+		 0.0f,  0.0f,  1.0f,
 		-1.0f,  0.0f,  0.0f,
 		-1.0f,  0.0f,  0.0f,
 		-1.0f,  0.0f,  0.0f,
@@ -206,20 +205,18 @@ int main()
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 	do {
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		shader.bind();
 		glm::mat4 mvp = movement.getMvp();
-		glm::mat4 v = movement.getV();
 		glm::mat4 m = movement.getM();
 		//Qube Draw
 		va.bind();
 		ib.bind();
 
-		glm::mat4 test = glm::lookAt(glm::vec3(1,1,1), glm::vec3(0,0,0), glm::vec3(0,0,0));
-
-		shader.setUniform1f("lightColor", 1.0f);
-		shader.setUniform1f("lightPower", 1.0f);
-		shader.setUniformMatrix4fv("V", 1, false, v);
+		shader.setUniform1f("lightStrength", 1.0f);
+		shader.setUniform3f("lightColor", 1.0f, 1.0f, 1.0f);
+		shader.setUniform3f("lightPosition", 1.2f, 1.0f, 2.0f);
 		shader.setUniformMatrix4fv("M", 1, false, m);
 		shader.setUniformMatrix4fv("MVP", 1, false, mvp);
 
