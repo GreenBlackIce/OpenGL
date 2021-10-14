@@ -16,8 +16,8 @@ void main()
 	vec3 ambient = fragmentLightColor * fragmentLightStrength;
 
 	//Keine ahnung was der unterschied ist
-	vec3 norm = fragmentNormals;
-	//vec3 norm = normalize(fragmentNormals);
+	//vec3 norm = fragmentNormals;
+	vec3 norm = normalize(fragmentNormals);
 	vec3 lightDir = normalize(fragmentLightPosition - fragmentPosition);
 	
 	vec3 viewDir = normalize(fragmentViewerPosition - fragmentPosition);
@@ -29,5 +29,6 @@ void main()
 	float diff = max(dot(norm, lightDir), 0.0);
 	vec3 diffuse = diff * fragmentLightColor;
 
+	//color = norm;
 	color = (ambient + diffuse + specular) * fragmentColor; 
 }

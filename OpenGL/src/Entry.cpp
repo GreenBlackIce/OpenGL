@@ -72,16 +72,16 @@ void startRender(GLFWwindow* window)
 		0.3f,  0.8f,  0.1f
 	};
 
-	float vertexBufferData[] =
+	float vertexBufferData[] = 
 	{
-		-0.5f, -0.5f,  0.5f, //0
-		 0.5f, -0.5f,  0.5f, //1
-		 0.5f,  0.5f,  0.5f, //2
-		-0.5f,  0.5f,  0.5f, //3   front end
-		-0.5f, -0.5f, -0.5f, //4
-		 0.5f, -0.5f, -0.5f, //5
-		 0.5f,  0.5f, -0.5f, //6
-		-0.5f,  0.5f, -0.5f, //7   back end
+		-0.5f,  0.5f,  0.5f, //0
+		 0.5f,  0.5f,  0.5f, //1
+		-0.5f, -0.5f,  0.5f, //2
+		 0.5f, -0.5f,  0.5f, //3   front end
+		-0.5f,  0.5f, -0.5f, //4
+		 0.5f,  0.5f, -0.5f, //5
+		-0.5f, -0.5f, -0.5f, //6
+		 0.5f, -0.5f, -0.5f, //7   back end
 		-0.5f, -0.5f,  0.5f, //0 8
 		-0.5f,  0.5f,  0.5f, //3 9
 		-0.5f, -0.5f, -0.5f, //4 10
@@ -98,7 +98,6 @@ void startRender(GLFWwindow* window)
 		-0.5f,  0.5f,  0.5f, //3 21
 		 0.5f,  0.5f, -0.5f, //6 22
 		-0.5f,  0.5f, -0.5f, //7 23 top end
-
 	};
 
 	float normalsBufferData[] =
@@ -114,7 +113,7 @@ void startRender(GLFWwindow* window)
 		-1.0f,  0.0f,  0.0f,
 		-1.0f,  0.0f,  0.0f,
 		-1.0f,  0.0f,  0.0f,
-		-1.0f,  0.0f,  0.0f, //left
+		-1.0f,  0.0f,  0.0f,//left
 		 1.0f,  0.0f,  0.0f,
 		 1.0f,  0.0f,  0.0f,
 		 1.0f,  0.0f,  0.0f,
@@ -132,27 +131,17 @@ void startRender(GLFWwindow* window)
 	unsigned int indexBuffer[] =
 	{
 		0, 1, 2,
-		0, 2, 3, //1
+		1, 2, 3, //1
 		4, 5, 6,
-		4, 6, 7, //2
+		5, 6, 7, //2
 		8, 9, 10,
-		9, 10, 11,
+		9, 10, 11, //3
 		12, 13, 14,
-		13, 14, 15,
+		13, 14, 15, //4
 		16, 17, 18,
-		17, 18, 19,
+		17, 18, 19, //5
 		20, 21, 22,
-		21, 22, 23
-		/*
-		0, 3, 4,
-		3, 4, 7, //3
-		1, 2, 5,
-		2, 5, 6, //4
-		1, 0, 5,
-		0, 5, 4, //5
-		2, 3, 6,
-		3, 6, 7 //6
-		*/
+		21, 22, 23  //6 
 	};
 
 
@@ -215,7 +204,7 @@ void startRender(GLFWwindow* window)
 		va.bind();
 		ib.bind();
 
-		shader.setUniform1f("lightStrength", 1.0f);
+		shader.setUniform1f("lightStrength", 0.5f);
 		shader.setUniform3f("lightColor", 1.0f, 1.0f, 1.0f);
 		shader.setUniform3f("lightPosition", 4.0f, 2.0f, 4.0f);
 		shader.setUniform3f("viewerPosition", movement.m_Position.x, movement.m_Position.y, movement.m_Position.z);
