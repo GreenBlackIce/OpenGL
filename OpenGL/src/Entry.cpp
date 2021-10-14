@@ -154,19 +154,13 @@ void startRender(GLFWwindow* window)
 		*/
 	};
 
-	//Define Date end
-	 //Qube start
 
 	VertexArray va;
-
 	VertexBuffer vb(vertexBufferData, 24 * 3 * sizeof(float));
 	VertexBuffer cb(colorBufferData, 24 * 3 * sizeof(float));
 	VertexBuffer nb(normalsBufferData, 24 * 3 * sizeof(float));
-
 	VertexBufferLayout layout;
-
 	IndexBuffer ib(indexBuffer, 36);
-
 	VertexBuffer* pVb[] = { &vb, &cb, &nb };
 
 	layout.push<float>(3);
@@ -178,25 +172,36 @@ void startRender(GLFWwindow* window)
 	vb.unbind();
 	ib.unbind();
 
-	//Qube end
+	VertexArray va2;
+	VertexBuffer vb2(vertexBufferData, 24 * 3 * sizeof(float));
+	VertexBuffer cb2(colorBufferData, 24 * 3 * sizeof(float));
+	VertexBuffer nb2(normalsBufferData, 24 * 3 * sizeof(float));
+	VertexBufferLayout layout2;
+	IndexBuffer ib2(indexBuffer, 36);
+	VertexBuffer* pVb2[] = { &vb2, &cb2, &nb2 };
+
+	layout2.push<float>(3);
+	layout.push<float>(3);
+	layout.push<float>(3);
+	va2.addBuffer(pVb2, layout2);
+
+	va2.unbind();
+	vb2.unbind();
+	ib2.unbind();
+
+	
 
 	Shader shader("..\\OpenGL\\src\\shader\\vertexShader.glsl", "..\\OpenGL\\src\\shader\\fragmentShader.glsl");
 
-	//MVP Cube start
-
 	Movement movement(window);
 
-	//MVP Cube end
-	//Drawing Loop Start
-
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_CULL_FACE); //Makes holes (doesnt render all triangles)
 	glDepthFunc(GL_LESS);
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 	do {
 		movement.movementStart();
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		shader.bind();
 		glm::mat4 mvp = movement.m_MovementData.getMvp();
@@ -206,13 +211,18 @@ void startRender(GLFWwindow* window)
 		ib.bind();
 
 		shader.setUniform1f("lightStrength", 1.0f);
-		shader.setUniform3f("lightColor", 1.0f, 1.0f, 0.5f);
-		shader.setUniform3f("lightPosition", 1.0f, 1.0f, 1.0f);
+		shader.setUniform3f("lightColor", 1.0f, 1.0f, 1.0f);
+		shader.setUniform3f("lightPosition", 4.0f, 2.0f, 4.0f);
 		shader.setUniform3f("viewerPosition", movement.m_Position.x, movement.m_Position.y, movement.m_Position.z);
 		shader.setUniformMatrix4fv("M", 1, false, m);
 		shader.setUniformMatrix4fv("MVP", 1, false, mvp);
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
 
+		va2.bind();
+		ib2.bind();
+		mvp = mvp::getMvp(mvp::getModel(glm::mat4(1.0f), glm::vec3(4, 2, 4), glm::vec3(0.2f)), movement.m_MovementData.view, movement.m_MovementData.projection);
+		shader.setUniformMatrix4fv("MVP", 1, false, mvp);
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
 
 		//Buffer swap
 		glfwSwapBuffers(window);
