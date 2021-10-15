@@ -16,7 +16,7 @@ GLFWwindow * startWindow()
 		fprintf(stderr, "Failed to initialize GLFW\n");
 	}
 
-	glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
+	//glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // We want OpenGL 3.3
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
@@ -186,7 +186,7 @@ void startRender(GLFWwindow* window)
 		std::cout << test.x << " " << test.y << " " << test.z << std::endl;
 	}
 
-	Shader shader("..\\OpenGL\\src\\shader\\vertexShader.glsl", "..\\OpenGL\\src\\shader\\fragmentShader.glsl");
+	Shader shader("..\\OpenGL\\src\\shader\\vertexShader2.glsl", "..\\OpenGL\\src\\shader\\fragmentShader2.glsl");
 
 	Movement movement(window);
 
@@ -201,20 +201,22 @@ void startRender(GLFWwindow* window)
 		shader.bind();
 		glm::mat4 mvp = movement.m_MovementData.getMvp();
 		glm::mat4 m = movement.m_MovementData.model;
+		glm::mat4 v = movement.m_MovementData.view;
+
 		va.bind();
 		ib.bind();
 
-		shader.setUniform1f("lightStrength", 0.5f);
+		shader.setUniform1f("lightStrength", 1.0f);
 		shader.setUniform3f("lightColor", 1.0f, 1.0f, 1.0f);
 		shader.setUniform3f("lightPosition", 4.0f, 2.0f, 4.0f);
-		shader.setUniform3f("viewerPosition", movement.m_Position.x, movement.m_Position.y, movement.m_Position.z);
 		shader.setUniformMatrix4fv("M", 1, false, m);
+		shader.setUniformMatrix4fv("V", 1, false, v);
 		shader.setUniformMatrix4fv("MVP", 1, false, mvp);
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
 
 		va2.bind();
 		ib2.bind();
-		mvp = mvp::getMvp(mvp::getModel(glm::mat4(1.0f), glm::vec3(4, 2, 4), glm::vec3(0.2f)), movement.m_MovementData.view, movement.m_MovementData.projection);
+		mvp = mvp::getMvp(mvp::getModel(glm::mat4(1.0f), glm::vec3(4.0f, 2.0f, 4.0f), glm::vec3(0.2f)), movement.m_MovementData.view, movement.m_MovementData.projection);
 		shader.setUniformMatrix4fv("MVP", 1, false, mvp);
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
 

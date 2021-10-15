@@ -900,6 +900,9 @@
     <ClInclude Include="src\Entry.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\OBJLoader.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vendor\glm\detail\func_common.inl">
@@ -1321,6 +1324,8 @@
     </None>
     <None Include="src\shader\fragmentShader.glsl" />
     <None Include="src\shader\vertexShader.glsl" />
+    <None Include="src\shader\fragmentShader2.glsl" />
+    <None Include="src\shader\vertexShader2.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vendor\glm\detail\glm.cpp">
@@ -1351,6 +1356,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\Entry.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OBJLoader.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

@@ -18,6 +18,7 @@ void main()
 	//Keine ahnung was der unterschied ist
 	//vec3 norm = fragmentNormals;
 	vec3 norm = normalize(fragmentNormals);
+
 	vec3 lightDir = normalize(fragmentLightPosition - fragmentPosition);
 	
 	vec3 viewDir = normalize(fragmentViewerPosition - fragmentPosition);
