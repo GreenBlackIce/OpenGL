@@ -1,4 +1,5 @@
 #include "Entry.h"
+#include "OBJLoader.h"
 
 int Start()
 {
@@ -44,6 +45,12 @@ GLFWwindow * startWindow()
 
 void startRender(GLFWwindow* window)
 {
+	std::vector< glm::vec3 > vertices;
+	std::vector< glm::vec2 > uvs;
+	std::vector< glm::vec3 > normals;
+
+	obj::loadOBJ("..\\OpenGL\\src\\object\\cube.obj",vertices, uvs, normals);
+
 	static const float colorBufferData[] = {
 		
 		0.5f,  0.7f,  0.0f,
@@ -71,7 +78,7 @@ void startRender(GLFWwindow* window)
 		0.1f,  0.6f,  0.0f,
 		0.3f,  0.8f,  0.1f
 	};
-
+	/**/
 	float vertexBufferData[] = 
 	{
 		-0.5f,  0.5f,  0.5f, //0
@@ -178,13 +185,6 @@ void startRender(GLFWwindow* window)
 	va2.unbind();
 	vb2.unbind();
 	ib2.unbind();
-
-	for (auto i = 0; i < 72; i += 3)
-	{
-		glm::vec3 test = glm::normalize(glm::vec3(normalsBufferData[i], normalsBufferData[i + 1], normalsBufferData[i + 2]));
-		std::cout << normalsBufferData[i] << " " << normalsBufferData[i + 1] << " " << normalsBufferData[i + 2] << std::endl;
-		std::cout << test.x << " " << test.y << " " << test.z << std::endl;
-	}
 
 	Shader shader("..\\OpenGL\\src\\shader\\vertexShader2.glsl", "..\\OpenGL\\src\\shader\\fragmentShader2.glsl");
 
