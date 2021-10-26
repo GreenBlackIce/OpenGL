@@ -1,10 +1,13 @@
 #include "Entry.h"
-#include "OBJLoader.h"
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_opengl3.h"
+#include "imgui/imgui_impl_glfw.h"
 
 int Start()
 {
 	GLFWwindow* window = startWindow();
 	startRender(window);
+	glfwDestroyWindow(window);
 	glfwTerminate();
 	return 0;
 }
@@ -45,11 +48,6 @@ GLFWwindow * startWindow()
 
 void startRender(GLFWwindow* window)
 {
-	std::vector< glm::vec3 > vertices;
-	std::vector< glm::vec2 > uvs;
-	std::vector< glm::vec3 > normals;
-
-	obj::loadOBJ("..\\OpenGL\\src\\object\\cube.obj",vertices, uvs, normals);
 
 	static const float colorBufferData[] = {
 		
@@ -78,7 +76,7 @@ void startRender(GLFWwindow* window)
 		0.1f,  0.6f,  0.0f,
 		0.3f,  0.8f,  0.1f
 	};
-	/**/
+	
 	float vertexBufferData[] = 
 	{
 		-0.5f,  0.5f,  0.5f, //0
@@ -150,25 +148,29 @@ void startRender(GLFWwindow* window)
 		20, 21, 22,
 		21, 22, 23  //6 
 	};
-
+	
 
 	VertexArray va;
-	VertexBuffer vb(vertexBufferData, 24 * 3 * sizeof(float));
-	VertexBuffer cb(colorBufferData, 24 * 3 * sizeof(float));
-	VertexBuffer nb(normalsBufferData, 24 * 3 * sizeof(float));
-	VertexBufferLayout layout;
+	VertexBuffer vb(vertexBufferData, 72 * sizeof(float));
+	VertexBuffer cb(colorBufferData, 72 * sizeof(float));
+	VertexBuffer nb(normalsBufferData, 72 * sizeof(float));
 	IndexBuffer ib(indexBuffer, 36);
-	VertexBuffer* pVb[] = { &vb, &cb, &nb };
 
+	VertexBufferLayout layout;
+	VertexBuffer* pVb[] = { &vb, &cb, &nb};
+	
 	layout.push<float>(3);
 	layout.push<float>(3);
 	layout.push<float>(3);
 	va.addBuffer(pVb, layout);
-
+	
 	va.unbind();
 	vb.unbind();
+	nb.unbind();
+	cb.unbind();
 	ib.unbind();
-
+	
+	
 	VertexArray va2;
 	VertexBuffer vb2(vertexBufferData, 24 * 3 * sizeof(float));
 	VertexBuffer cb2(colorBufferData, 24 * 3 * sizeof(float));
@@ -185,16 +187,30 @@ void startRender(GLFWwindow* window)
 	va2.unbind();
 	vb2.unbind();
 	ib2.unbind();
-
+	
 	Shader shader("..\\OpenGL\\src\\shader\\vertexShader2.glsl", "..\\OpenGL\\src\\shader\\fragmentShader2.glsl");
 
 	Movement movement(window);
+	
+
+	ImGui::CreateContext();
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init();
+	ImGui::StyleColorsDark();
+
+
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 	do {
+
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
+
 		movement.movementStart();
 		glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -213,12 +229,17 @@ void startRender(GLFWwindow* window)
 		shader.setUniformMatrix4fv("V", 1, false, v);
 		shader.setUniformMatrix4fv("MVP", 1, false, mvp);
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
-
+		
 		va2.bind();
 		ib2.bind();
 		mvp = mvp::getMvp(mvp::getModel(glm::mat4(1.0f), glm::vec3(4.0f, 2.0f, 4.0f), glm::vec3(0.2f)), movement.m_MovementData.view, movement.m_MovementData.projection);
 		shader.setUniformMatrix4fv("MVP", 1, false, mvp);
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
+		
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 
 		//Buffer swap
 		glfwSwapBuffers(window);
@@ -227,4 +248,7 @@ void startRender(GLFWwindow* window)
 		glfwWindowShouldClose(window) == 0);
 
 	shader.unbind();
+
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui::DestroyContext();
 }

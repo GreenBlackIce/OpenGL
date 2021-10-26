@@ -9,6 +9,7 @@ in vec3 lightPosition_camera;
 in vec3 viewDirection_camera;
 in vec3 fragmentVertexPosition;
 in vec3 fragmentLightPosition;
+in vec2 UV;
 
 uniform float lightStrength;
 uniform vec3 lightColor;

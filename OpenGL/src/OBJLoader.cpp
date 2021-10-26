@@ -24,7 +24,6 @@ bool obj::loadOBJ(const char * path, std::vector<glm::vec3>& out_vertices, std::
 		if (res == EOF)
 			break; // EOF = End Of File. Quit the loop.
 
-			// else : parse lineHeader
 
 		if (strcmp(lineHeader, "v") == 0) {
 			glm::vec3 vertex;

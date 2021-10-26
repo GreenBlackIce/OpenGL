@@ -26,6 +26,7 @@ void VertexArray::addBuffer(const VertexBuffer& vb, const VertexBufferLayout & l
 		offset += element.count * VertexBufferElement::getSizeOfType(element.type);
 	}
 }
+
 void VertexArray::addBuffer(VertexBuffer * vb[], const VertexBufferLayout & layout)
 {
 	bind();
@@ -41,6 +42,7 @@ void VertexArray::addBuffer(VertexBuffer * vb[], const VertexBufferLayout & layo
 		offset += element.count * VertexBufferElement::getSizeOfType(element.type);
 	}
 }
+
 void VertexArray::bind() const
 {
 	GLCall(glBindVertexArray(m_RendererID));

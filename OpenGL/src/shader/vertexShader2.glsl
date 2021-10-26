@@ -1,8 +1,9 @@
 #version 330 core
 
-layout(location = 1) in vec3 vertexColor;
 layout(location = 0) in vec3 vertexPosition;
+layout(location = 1) in vec3 vertexColor;
 layout(location = 2) in vec3 vertexNormals;
+layout(location = 3) in vec2 vertexUV;
 
 uniform mat4 MVP;
 uniform mat4 M;
@@ -17,6 +18,7 @@ out vec3 fragmentColor;
 out vec3 viewDirection_camera;
 out vec3 fragmentVertexPosition;
 out vec3 fragmentLightPosition;
+out vec2 UV;
 
 void main()
 {
@@ -35,4 +37,6 @@ void main()
 
     normal_camera = (V * M * vec4(vertexNormals,0)).xyz;
     fragmentColor = vertexColor;
+
+    UV = vertexUV;
 }
