@@ -3,6 +3,9 @@
 #include "GLFW/glfw3.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_opengl3.h"
+#include "imgui/imgui_impl_glfw.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,6 +17,9 @@
 #include "VertexArray.h"
 #include "Movement.h"
 #include "Mvp.h"
+
+#include "demo/DemoClearColor.h"
+#include "demo/DemoSingleTriangle.h"
 
 int Start();
 

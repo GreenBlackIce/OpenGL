@@ -930,6 +930,18 @@
     <ClInclude Include="src\vendor\imgui\imstb_truetype.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\demo\Demo.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\demo\DemoClearColor.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\demo\DemoSingleTriangle.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Drawer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vendor\glm\detail\func_common.inl">
@@ -1353,6 +1365,8 @@
     <None Include="src\shader\vertexShader.glsl" />
     <None Include="src\shader\fragmentShader2.glsl" />
     <None Include="src\shader\vertexShader2.glsl" />
+    <None Include="src\shader\vertexDemoSingleTriangle.glsl" />
+    <None Include="src\shader\fragmentDemoSingleTriangle.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vendor\glm\detail\glm.cpp">
@@ -1407,6 +1421,18 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\vendor\imgui\imgui_widgets.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\demo\DemoClearColor.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\demo\Demo.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\demo\DemoSingleTriangle.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Drawer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

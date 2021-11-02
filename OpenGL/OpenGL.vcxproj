@@ -19,6 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\demo\Demo.h" />
+    <ClInclude Include="src\demo\DemoClearColor.h" />
+    <ClInclude Include="src\demo\DemoSingleTriangle.h" />
+    <ClInclude Include="src\Drawer.h" />
     <ClInclude Include="src\Entry.h" />
     <ClInclude Include="src\IndexBuffer.h" />
     <ClInclude Include="src\Movement.h" />
@@ -326,8 +330,10 @@
     <ClInclude Include="src\VertexBufferLayout.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\shader\fragmentDemoSingleTriangle.glsl" />
     <None Include="src\shader\fragmentShader.glsl" />
     <None Include="src\shader\fragmentShader2.glsl" />
+    <None Include="src\shader\vertexDemoSingleTriangle.glsl" />
     <None Include="src\shader\vertexShader.glsl" />
     <None Include="src\shader\vertexShader2.glsl" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
@@ -471,6 +477,10 @@
     <None Include="src\vendor\glm\gtx\wrap.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\demo\Demo.cpp" />
+    <ClCompile Include="src\demo\DemoClearColor.cpp" />
+    <ClCompile Include="src\demo\DemoSingleTriangle.cpp" />
+    <ClCompile Include="src\Drawer.cpp" />
     <ClCompile Include="src\Entry.cpp" />
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -548,7 +558,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src/shader;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)OpenGL\src\vendor;$(SolutionDir)Dependencies\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src/shader;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)OpenGL\src\vendor;$(SolutionDir)Dependencies\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -572,7 +582,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src/shader;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)OpenGL\src\vendor;$(SolutionDir)Dependencies\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src/shader;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)OpenGL\src\vendor;$(SolutionDir)Dependencies\GLEW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

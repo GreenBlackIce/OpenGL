@@ -1,7 +1,6 @@
 #include "Entry.h"
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_opengl3.h"
-#include "imgui/imgui_impl_glfw.h"
+#include "Drawer.h"
+
 
 int Start()
 {
@@ -20,7 +19,7 @@ GLFWwindow * startWindow()
 		fprintf(stderr, "Failed to initialize GLFW\n");
 	}
 
-	//glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
+	glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // We want OpenGL 3.3
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
@@ -48,7 +47,7 @@ GLFWwindow * startWindow()
 
 void startRender(GLFWwindow* window)
 {
-
+	/*
 	static const float colorBufferData[] = {
 		
 		0.5f,  0.7f,  0.0f,
@@ -191,51 +190,50 @@ void startRender(GLFWwindow* window)
 	Shader shader("..\\OpenGL\\src\\shader\\vertexShader2.glsl", "..\\OpenGL\\src\\shader\\fragmentShader2.glsl");
 
 	Movement movement(window);
+	*/
 	
-	bool show_demo_window = true;
-	bool show_another_window = false;
-	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 	ImGui::CreateContext();
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init();
 	ImGui::StyleColorsDark();
+	
+	Demo::Demo* currentDemo = nullptr;
+	Demo::DemoMenu* demoMenu = new Demo::DemoMenu(currentDemo);
+	currentDemo = demoMenu;
 
+	demoMenu->registerDemo<Demo::DemoSingleTriangle>("SingleTriangle");
+	demoMenu->registerDemo<Demo::DemoClearColor>("ClearColor");
+	
 
-
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 	do {
+		
+		GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+		GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
+		if (currentDemo)
 		{
-			static float f = 0.0f;
-			static int counter = 0;
-
-			ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-			ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-			ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-			ImGui::Checkbox("Another Window", &show_another_window);
-
-			ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-			ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-			if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-				counter++;
-			ImGui::SameLine();
-			ImGui::Text("counter = %d", counter);
-
-			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			currentDemo->onUpdate(0.0f);
+			currentDemo->onRender();
+			ImGui::Begin("Demo");
+			if (currentDemo != demoMenu && ImGui::Button("<-"))
+			{
+				delete currentDemo;
+				currentDemo = demoMenu;
+			}
+			currentDemo->onImGUIRender();
 			ImGui::End();
+			ImGui::Render();
+			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		}
-
-
+		
+		/*
 		movement.movementStart();
 		glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -244,8 +242,8 @@ void startRender(GLFWwindow* window)
 		glm::mat4 m = movement.m_MovementData.model;
 		glm::mat4 v = movement.m_MovementData.view;
 
-		va.bind();
-		ib.bind();
+		//va.bind();
+		//ib.bind();
 
 		shader.setUniform1f("lightStrength", 1.0f);
 		shader.setUniform3f("lightColor", 1.0f, 1.0f, 1.0f);
@@ -253,27 +251,30 @@ void startRender(GLFWwindow* window)
 		shader.setUniformMatrix4fv("M", 1, false, m);
 		shader.setUniformMatrix4fv("V", 1, false, v);
 		shader.setUniformMatrix4fv("MVP", 1, false, mvp);
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
+		//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
+		Drawer::draw(shader, va, ib);
 		
-		va2.bind();
-		ib2.bind();
+		//va2.bind();
+		//ib2.bind();
 		mvp = mvp::getMvp(mvp::getModel(glm::mat4(1.0f), glm::vec3(4.0f, 2.0f, 4.0f), glm::vec3(0.2f)), movement.m_MovementData.view, movement.m_MovementData.projection);
 		shader.setUniformMatrix4fv("MVP", 1, false, mvp);
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
+		//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, nullptr);
+		Drawer::draw(shader, va2, ib2);
+
+		//ImGui::Render();
+		//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		
-
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-
+		*/
 		//Buffer swap
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 		glfwWindowShouldClose(window) == 0);
 
-	shader.unbind();
-
+	delete demoMenu;
+	
 	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
+	
 }

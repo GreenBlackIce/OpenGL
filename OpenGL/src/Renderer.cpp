@@ -1,5 +1,4 @@
 #include "Renderer.h"
-#include <iostream>
 
 void GLClearError()
 {
@@ -10,7 +9,7 @@ bool GLLogCall(const char* function, const char* file, int line)
 {
 	while (GLenum error = glGetError())
 	{
-		std::cout << file << ":" << line << std::endl;
+		std::cout << "[Open GLError] (" << error << "): " << function << " " << file << ":" << line << std::endl;
 		return false;
 	}
 	return true;
