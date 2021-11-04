@@ -21,6 +21,7 @@
 #include "demo/DemoClearColor.h"
 #include "demo/DemoSingleTriangle.h"
 #include "demo/DemoSingleTriangleColor.h"
+#include "demo/DemoSingleTriangleColorTri.h"
 
 int Start();
 
