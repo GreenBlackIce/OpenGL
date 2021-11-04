@@ -20,6 +20,7 @@
 
 #include "demo/DemoClearColor.h"
 #include "demo/DemoSingleTriangle.h"
+#include "demo/DemoSingleTriangleColor.h"
 
 int Start();
 

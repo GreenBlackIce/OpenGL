@@ -9,11 +9,11 @@
 
 namespace Demo
 {
-	class DemoSingleTriangle : public Demo
+	class DemoSingleTriangleColor : public Demo
 	{
 	public:
-		DemoSingleTriangle();
-		~DemoSingleTriangle();
+		DemoSingleTriangleColor();
+		~DemoSingleTriangleColor();
 
 		void onUpdate(float deltaTime) override;
 		void onRender() override;
@@ -25,6 +25,7 @@ namespace Demo
 		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		std::unique_ptr<VertexArray> m_VertexArray;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<VertexBuffer> m_ColorBuffer;
 		
 		float m_Color[4];
 	};

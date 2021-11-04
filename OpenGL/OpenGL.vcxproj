@@ -22,6 +22,7 @@
     <ClInclude Include="src\demo\Demo.h" />
     <ClInclude Include="src\demo\DemoClearColor.h" />
     <ClInclude Include="src\demo\DemoSingleTriangle.h" />
+    <ClInclude Include="src\demo\DemoSingleTriangleColor.h" />
     <ClInclude Include="src\Drawer.h" />
     <ClInclude Include="src\Entry.h" />
     <ClInclude Include="src\IndexBuffer.h" />
@@ -331,9 +332,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shader\fragmentDemoSingleTriangle.glsl" />
+    <None Include="src\shader\fragmentDemoSingleTriangleColor.glsl" />
     <None Include="src\shader\fragmentShader.glsl" />
     <None Include="src\shader\fragmentShader2.glsl" />
     <None Include="src\shader\vertexDemoSingleTriangle.glsl" />
+    <None Include="src\shader\vertexDemoSingleTriangleColor.glsl" />
     <None Include="src\shader\vertexShader.glsl" />
     <None Include="src\shader\vertexShader2.glsl" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
@@ -480,6 +483,7 @@
     <ClCompile Include="src\demo\Demo.cpp" />
     <ClCompile Include="src\demo\DemoClearColor.cpp" />
     <ClCompile Include="src\demo\DemoSingleTriangle.cpp" />
+    <ClCompile Include="src\demo\DemoSingleTriangleColor.cpp" />
     <ClCompile Include="src\Drawer.cpp" />
     <ClCompile Include="src\Entry.cpp" />
     <ClCompile Include="src\IndexBuffer.cpp" />

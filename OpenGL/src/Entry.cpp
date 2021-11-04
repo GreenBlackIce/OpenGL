@@ -203,6 +203,7 @@ void startRender(GLFWwindow* window)
 	currentDemo = demoMenu;
 
 	demoMenu->registerDemo<Demo::DemoSingleTriangle>("SingleTriangle");
+	demoMenu->registerDemo<Demo::DemoSingleTriangleColor>("Triangle with ColorBuffer");
 	demoMenu->registerDemo<Demo::DemoClearColor>("ClearColor");
 	
 
