@@ -20,9 +20,9 @@ namespace Demo
 
 		float vertexPositions[] =
 		{
-			 0.5f, -0.5f,  0.0f, //0
-			-0.5f, -0.5f,  0.0f, //1
-			 0.0f,  0.5f,  0.0f, //2
+			 0.5f, -0.5f,  0.0f, 0.5f,  0.7f,  0.0f,
+			-0.5f, -0.5f,  0.0f, 0.6f,  0.1f,  0.4f,
+			 0.0f,  0.5f,  0.0f, 0.3f,  0.4f,  0.8f
 		};
 
 		unsigned int indeces[] =
@@ -31,14 +31,14 @@ namespace Demo
 		};
 		
 		m_VertexArray = std::make_unique<VertexArray>();
-		m_VertexBuffer = std::make_unique<VertexBuffer>(vertexPositions, 9 * sizeof(float));
-		m_ColorBuffer = std::make_unique<VertexBuffer>(colorBufferData, 9 * sizeof(float));
+		m_VertexBuffer = std::make_unique<VertexBuffer>(vertexPositions, 18 * sizeof(float));
+		//m_ColorBuffer = std::make_unique<VertexBuffer>(colorBufferData, 9 * sizeof(float));
 		m_IndexBuffer = std::make_unique<IndexBuffer>(indeces, 3);
 
 		VertexBufferLayout layout;
 		layout.push<float>(3);
 		layout.push<float>(3);
-		//TODO: AddBuffer with 2 Pointers
+
 
 		m_VertexArray->addBuffer(*m_VertexBuffer, layout);
 		
