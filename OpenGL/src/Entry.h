@@ -23,6 +23,7 @@
 #include "demo/DemoSingleTriangleColor.h"
 #include "demo/DemoSingleTriangleColorTri.h"
 #include "demo/DemoSingleTriangleSingleColor.h"
+#include "demo/DemoSquare.h"
 
 int Start();
 
