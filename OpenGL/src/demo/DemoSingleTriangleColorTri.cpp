@@ -9,7 +9,7 @@ namespace Demo
 {
 
 	DemoSingleTriangleColorTri::DemoSingleTriangleColorTri()
-		:m_Color{ 0.2f, 0.3f, 0.5f, 1.0f }
+		:m_Color{ 1.0f, 1.0f, 1.0f, 1.0f }
 	{
 		float colorBufferData[] =
 		{
@@ -32,13 +32,11 @@ namespace Demo
 		
 		m_VertexArray = std::make_unique<VertexArray>();
 		m_VertexBuffer = std::make_unique<VertexBuffer>(vertexPositions, 18 * sizeof(float));
-		//m_ColorBuffer = std::make_unique<VertexBuffer>(colorBufferData, 9 * sizeof(float));
 		m_IndexBuffer = std::make_unique<IndexBuffer>(indeces, 3);
 
 		VertexBufferLayout layout;
 		layout.push<float>(3);
 		layout.push<float>(3);
-
 
 		m_VertexArray->addBuffer(*m_VertexBuffer, layout);
 		

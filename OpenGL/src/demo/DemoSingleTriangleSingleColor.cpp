@@ -1,4 +1,4 @@
-#include "DemoSingleTriangleColor.h"
+#include "DemoSingleTriangleSingleColor.h"
 #include "Renderer.h"
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
@@ -8,8 +8,8 @@
 namespace Demo
 {
 
-	DemoSingleTriangleColor::DemoSingleTriangleColor()
-		:m_Color{ 1.0f, 1.0f, 1.0f, 1.0f }
+	DemoSingleTriangleSingleColor::DemoSingleTriangleSingleColor()
+		:m_Color{ 0.2f, 0.3f, 0.5f, 1.0f }
 	{
 		float colorBufferData[] =
 		{
@@ -42,20 +42,20 @@ namespace Demo
 
 		m_VertexArray->addBuffer(*m_VertexBuffer, layout);
 		
-		m_Shader = std::make_unique<Shader>("..\\OpenGL\\src\\shader\\vertexDemoSingleTriangleColor.glsl", "..\\OpenGL\\src\\shader\\fragmentDemoSingleTriangleColor.glsl");
+		m_Shader = std::make_unique<Shader>("..\\OpenGL\\src\\shader\\vertexDemoSingleTriangleSingleColor.glsl", "..\\OpenGL\\src\\shader\\fragmentDemoSingleTriangleSingleColor.glsl");
 
 	}
 
-	DemoSingleTriangleColor::~DemoSingleTriangleColor()
+	DemoSingleTriangleSingleColor::~DemoSingleTriangleSingleColor()
 	{
 	}
 
-	void DemoSingleTriangleColor::onUpdate(float deltaTime)
+	void DemoSingleTriangleSingleColor::onUpdate(float deltaTime)
 	{
 
 	}
 
-	void DemoSingleTriangleColor::onRender()
+	void DemoSingleTriangleSingleColor::onRender()
 	{
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		Drawer::clear();
@@ -66,7 +66,7 @@ namespace Demo
 		Drawer::draw(*m_Shader, *m_VertexArray, *m_IndexBuffer);
 	}
 
-	void DemoSingleTriangleColor::onImGUIRender()
+	void DemoSingleTriangleSingleColor::onImGUIRender()
 	{
 		ImGui::ColorEdit4("Color", m_Color);
 	}

@@ -948,6 +948,9 @@
     <ClInclude Include="src\demo\DemoSingleTriangleColorTri.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\demo\DemoSingleTriangleSingleColor.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vendor\glm\detail\func_common.inl">
@@ -1377,6 +1380,8 @@
     <None Include="src\shader\vertexDemoSingleTriangleColor.glsl" />
     <None Include="src\shader\vertexDemoSingleTriangleColorTri.glsl" />
     <None Include="src\shader\fragmentDemoSingleTriangleColorTri.glsl" />
+    <None Include="src\shader\vertexDemoSingleTriangleSingleColor.glsl" />
+    <None Include="src\shader\fragmentDemoSingleTriangleSingleColor.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vendor\glm\detail\glm.cpp">
@@ -1449,6 +1454,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\demo\DemoSingleTriangleColorTri.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\demo\DemoSingleTriangleSingleColor.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
