@@ -206,6 +206,7 @@ void startRender(GLFWwindow* window)
 	demoMenu->registerDemo<Demo::DemoSingleTriangle>("SingleTriangle");
 	demoMenu->registerDemo<Demo::DemoSingleTriangleSingleColor>("Triangle Single Color");
 	demoMenu->registerDemo<Demo::DemoSingleTriangleColor>("Triangle with ColorBuffer (Wheel)");
+	demoMenu->registerDemo<Demo::DemoSingleTriangleColorTriSpin>("Triangle Colorwheel and Move");
 	//demoMenu->registerDemo<Demo::DemoSingleTriangleColorTri>("Triangle with ColorBuffer and 3 pickers");
 	demoMenu->registerDemo<Demo::DemoSquareSingleColor>("Square Color Single");
 	demoMenu->registerDemo<Demo::DemoSquare>("Square Color (Wheel)");

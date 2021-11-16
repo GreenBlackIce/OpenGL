@@ -957,6 +957,9 @@
     <ClInclude Include="src\demo\DemoSquareSingleColor.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\demo\DemoSingleTriangleColorTriSpin.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vendor\glm\detail\func_common.inl">
@@ -1392,6 +1395,8 @@
     <None Include="src\shader\vertexDemoSquare.glsl" />
     <None Include="src\shader\vertexDemoSquareSingleColor.glsl" />
     <None Include="src\shader\fragmentDemoSquareSingleColor.glsl" />
+    <None Include="src\shader\vertexDemoSingleTriangleColorTriSpin.glsl" />
+    <None Include="src\shader\fragmentDemoSingleTriangleColorTriSpin.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vendor\glm\detail\glm.cpp">
@@ -1473,6 +1478,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\demo\DemoSquareSingleColor.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\demo\DemoSingleTriangleColorTriSpin.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

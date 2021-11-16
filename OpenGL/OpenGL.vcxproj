@@ -24,6 +24,7 @@
     <ClInclude Include="src\demo\DemoSingleTriangle.h" />
     <ClInclude Include="src\demo\DemoSingleTriangleColor.h" />
     <ClInclude Include="src\demo\DemoSingleTriangleColorTri.h" />
+    <ClInclude Include="src\demo\DemoSingleTriangleColorTriSpin.h" />
     <ClInclude Include="src\demo\DemoSingleTriangleSingleColor.h" />
     <ClInclude Include="src\demo\DemoSquare.h" />
     <ClInclude Include="src\demo\DemoSquareSingleColor.h" />
@@ -338,6 +339,7 @@
     <None Include="src\shader\fragmentDemoSingleTriangle.glsl" />
     <None Include="src\shader\fragmentDemoSingleTriangleColor.glsl" />
     <None Include="src\shader\fragmentDemoSingleTriangleColorTri.glsl" />
+    <None Include="src\shader\fragmentDemoSingleTriangleColorTriSpin.glsl" />
     <None Include="src\shader\fragmentDemoSingleTriangleSingleColor.glsl" />
     <None Include="src\shader\fragmentDemoSquare.glsl" />
     <None Include="src\shader\fragmentDemoSquareSingleColor.glsl" />
@@ -346,6 +348,7 @@
     <None Include="src\shader\vertexDemoSingleTriangle.glsl" />
     <None Include="src\shader\vertexDemoSingleTriangleColor.glsl" />
     <None Include="src\shader\vertexDemoSingleTriangleColorTri.glsl" />
+    <None Include="src\shader\vertexDemoSingleTriangleColorTriSpin.glsl" />
     <None Include="src\shader\vertexDemoSingleTriangleSingleColor.glsl" />
     <None Include="src\shader\vertexDemoSquare.glsl" />
     <None Include="src\shader\vertexDemoSquareSingleColor.glsl" />
@@ -497,6 +500,7 @@
     <ClCompile Include="src\demo\DemoSingleTriangle.cpp" />
     <ClCompile Include="src\demo\DemoSingleTriangleColor.cpp" />
     <ClCompile Include="src\demo\DemoSingleTriangleColorTri.cpp" />
+    <ClCompile Include="src\demo\DemoSingleTriangleColorTriSpin.cpp" />
     <ClCompile Include="src\demo\DemoSingleTriangleSingleColor.cpp" />
     <ClCompile Include="src\demo\DemoSquare.cpp" />
     <ClCompile Include="src\demo\DemoSquareSingleColor.cpp" />
